@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Conscientia 2019</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+	<meta name="description" content="Conscientia is the annual technical fest of IIST, Trivandrum.">
+	<meta name="keywords" content="webgl, effect, tube, infinite, interactive, threejs, background, canvas" />
+	<meta name="author" content="Louis Hoebregts for Codrops" />
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css">  
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css"> 
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Audiowide|Oswald" rel="stylesheet"> 
+	<link rel="stylesheet" type="text/css" href="css/style_gvd.css" />
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+	<style type="text/css">
+		html,body{
+            margin:0;
+            padding:0;
+            border:0;
+            vertical-align: baseline;
+        }
+
+        @font-face {
+        font-family: "My Custom Font";
+        src: url('fonts/Dillydallier.otf') format("truetype");
+                   }
+
+		</style>
+	<script src="js/photoswipe.min.js"></script> 
+	<script src="js/photoswipe-ui-default.min.js"></script> 
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"> </script>
+	<script>document.documentElement.className = 'js';</script>
+</head>
+<body class="demo-3 loading" style="width:100vw;height:100vh;display: flex;flex-direction: column;overflow-x: hidden;background-color: transparent;font-family:Oswald;/*background-image: url('img/demo3/bg_temp.jpeg');background-size: cover;background-position: center;background-repeat: no-repeat;background-attachment: fixed;*/overflow-y:hidden;overflow-x: hidden;background-image: url('img/demo3/galaxy_texture_pexels.jpeg');">
+<main>
+	<div class="content" style="z-index: -1;display: flex;position: fixed;justify-content: center;align-items: center;width: 100vw;height:100%;overflow-x:hidden;">
+		<canvas id="scene" style="filter:grayscale(0%);overflow-x: hidden;"></canvas>
+	</div>
+</main>
+<!--  -->
+<div id="logo_titles_icons" style="width:100vw;height:100vh;display:flex;flex-direction: column;justify-content: center;align-items: center;">
+	<div id="titles" style="position:absolute;top:45%;font-size: 47px;font-family: Audiowide;overflow-x: hidden;">
+	GET READY TO GO
+	</div>
+    <div id="theme" style="position:absolute;top:55%;font-size: 47px;font-family: Audiowide;overflow-x: hidden;"> 
+    #INTO THE COSMOS
+    </div>
+    <div id="new_appearance" style="display: flex;flex-direction: column;width:100vw;justify-content: center;align-items: center;position: absolute;overflow-x: hidden;">
+    	<div class="title_div" style="display: flex;justify-content: space-between;align-items: center;height: 34vh;width: 100%;padding: 30px;overflow-x: hidden;overflow-y: hidden;">
+    		<div id="logo_div" style="display: flex;justify-content:flex-end;align-items: center;padding: 20px;width: 40%;padding-right: 0;overflow-x: hidden;">
+    			<img id="logo" src="img/demo3/white_small.png" style="">
+    		</div>
+    		<!-- <div id="consc1" style="width:60%;"> -->
+    		<div id="consc" style="width:60%;justify-content: center;align-items: center;padding: 20px;font-family: Audiowide;font-size: 50px;padding-left: 15px;overflow-x: hidden;"><div id="edit" style="width:auto;display: flex;flex-direction: column;justify-content: flex-start;"><div>CONSCIENTIA '19</div><div id="check_font" style="display: flex;justify-content: flex-start;font-size: 20px;padding-top: 5px;">Indian Institute of Space Science and Technology</div>
+            </div>
+        </div>
+    		<!-- </div> -->
+    	</div>
+<!--  -->
+        <div class="timer_main" style="width:100vw;height:30vh;display: flex;flex-direction: column;justify-content: center;align-items:center;">
+           <div class="d2g" style="width:100%;height: auto;display: flex;flex-direction: row;justify-content: center;align-items: center;font-size:40px;font-family: My Custom Font ;padding:5px;overflow-x: hidden;">DAYS TO GO
+           </div>
+           <div id="days" style="width:100%;height: auto;display: flex;flex-direction: row;justify-content: center;padding-top:28px;align-items:center;font-family:My Custom Font ;font-size: 55px;overflow-x: hidden;">
+           </div>
+        </div>
+<!--  -->
+        <div class="date_details" style="width:100%;height:25vh;display: flex;justify-content: center;align-items: center;font-size: 40px;">
+        	<div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+        		 <div style="width:100%;height: auto;display: flex;flex-direction: row;justify-content: center;align-items: center;;font-family: Audiowide ;padding-top: 20px;overflow-x: hidden;">1st - 4th MARCH ,2019 </div>
+        	     <div style="width:100%;height: auto;display: flex;flex-direction: row;justify-content: center;align-items: center;font-family: Audiowide ;overflow-x: hidden;">#INTO THE COSMOS </div>
+        	</div>
+        </div>
+<!--  -->
+        <div id="scroll_icon" style="width:100%;height:20vh;display: flex;flex-direction: column;justify-content: center;align-items: center;font-size: 20px;padding: 10px;overflow-x: hidden;">
+        	<div style="overflow-x: hidden;display: flex;justify-content: center;align-items: center;padding-top: 20px;font-family: Audiowide;">Scroll For More</div>
+        	<div style="overflow-x: hidden;display: flex;flex-direction: row;justify-content: center;align-items: center;"><i class="fa fa-arrow-down" aria-hidden="true"></i></div>
+        </div>
+    </div>
+</div>
+<!--  -->
+<div id="about_gallery_contact" style="overflow-x: hidden;width:100vw;height:auto;position:absolute;top:103%;display:flex;flex-direction: column;justify-content: center;align-items: center;">
+	<div class="About" style="width:100%;font-size: 40px;overflow-x: hidden;display:flex;flex-direction: column;height:auto;">
+	   <div id="abt" style="display: flex;overflow-x: hidden;flex-direction: row;justify-content: center;align-items: center;font-size: 45px;font-family: Audiowide;padding:10px;">ABOUT</div> 
+	   <div style="padding:30px;font-size: 27px;font-family: Oswald;"><div style="padding:0px;width:100%;display:flex;justify-content: center;align-items: center;overflow-x: hidden;"><div id="quote" style="font-style: italic;overflow-x: hidden;">"Somewhere, something incredible is waiting to be known."</div></div>
+          <p id="para" style="padding-bottom:10px;padding-left: 40px;padding-right: 40px;overflow-x: hidden;line-height: 1.5em;text-align: justify;">Conscientia, IIST, one of the largest technical fests of  South  India provides a platform for one and all to witness one of the most exuberant and groundbreaking amalgamations of space science and technology with pure delight and ebullience. With a plethora of events like motivating orations, state of the art technological exhibitions, cut-throat competitions and breathtaking performances for its audience, the four day extravaganza challenges you to step out of your comfort zone and challenge the school of conventional thinking. Come, join us for Conscientia and rediscover the unknown potential in you.</p></div>
+	</div>
+    <div class="PH_swipe_gallery" style="display: flex;justify-content: center;overflow-x: hidden;align-items: center;height:auto;padding:20px;padding-bottom: 30px;">
+    <div class="button_item" style="width:100%;display: flex;flex-direction:column;justify-content: center;overflow-x: hidden;align-items: center;padding-top: 10px;padding-bottom: 0"><div style="height:auto"><button id="btn" style="background-color: transparent;color:white;font-size: 40px;border:1px solid transparent;border-radius: 10px;font-family: Audiowide;background-color: transparent;padding:0;width: auto;height: auto;"><img id="cam" src="img/demo3/drone_gallery.png" style="transform: scale(0.8)"></button></div><div id="tap" style="display: none;justify-content: center;font-size: 29px;">Tap to view the gallery</div></div>
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+         </div>
+
+        </div>
+
+    </div>
+    </div>
+
+    <div class="contact_us" style="overflow-x: hidden;width:100vw;display: flex;flex-direction: column;justify-content: center;align-items: center;font-family: Audiowide;overflow-x: hidden;padding:20px;">
+    	<div id="contac" style="overflow-x: hidden;display: flex;flex-direction: row;justify-content: center;align-items: center;font-size: 45px;font-family: Audiowide;padding-bottom: 20px;">CONTACT US</div>
+    	<div id="flexer" style="overflow-x: hidden;display: flex;flex-direction:row;width: 100%;font-size: 25px;justify-content: center;box-sizing: border-box; ">
+    	<div class="name_div" style="overflow-x: hidden;display: flex;flex-direction: column;width:30%;justify-content: center;align-items: center;padding-right: 10px;">
+        <div style="display:flex;justify-content: center;align-items: center;width:100%;overflow-x: hidden;">Chief Co-ordinator</div>
+        <div id="borderer" style="width:85%;border:2px solid white;border-radius: 10px;overflow-x: hidden;">
+        <div style="display:flex;justify-content: center;align-items: center;width:100%;overflow-x: hidden;">JESAL KOTAK</div>
+        <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%;overflow-x: hidden;"><div><i class="fa fa-phone" aria-hidden="true" style="padding:5px;"></i></div><div style="display: flex;justify-content: center;align-items: center;">+91 9447788057</div></div>
+            <div></div>
+    	     <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%"><div><i class="fa fa-envelope" aria-hidden="true" style="padding:5px;"></i></div><div style="display: flex;justify-content: center;align-items: center;">jesaldkotak@gmail.com</div></div>
+            <div></div>
+    	    </div>
+    	    </div>
+    	 <div class="name_div" style="display: flex;flex-direction: column;width:30%;justify-content: center;align-items: center;padding-right: 10px;">
+            <div style="display:flex;justify-content: center;align-items: center;width:100%">Vice Chief Co-ordinator</div>
+            <div id="borderer2" style="width:85%;border:2px solid white;border-radius: 10px;">
+            <div style="display:flex;justify-content: center;align-items: center;width:100%">RAHUL KUMAR</div>
+            <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%"><div><i class="fa fa-phone" aria-hidden="true" style="padding:5px;"></i></div><div style="display: flex;justify-content: center;align-items: center;">+91 9447785615</div></div>
+            <div></div>
+    	    <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%"><div><i class="fa fa-envelope" aria-hidden="true" style="padding:5px;"></i></div><div style="display: flex;justify-content: center;align-items: center;">rah6244@gmail.com</div></div>
+            <div></div>
+    	</div>
+    	</div>	
+         <div class="name_div" style="display: flex;flex-direction: column;width:30%;justify-content: center;align-items: center;padding-right: 10px;">
+            <div style="display:flex;justify-content: center;align-items: center;width:100%">Finance Co-ordinator</div>
+             <div id="borderer1" style="width:85%;border:2px solid white;border-radius: 10px;">
+            <div style="display:flex;justify-content: center;align-items: center;;width:100%">BRITISH SONTAKKE</div>
+            <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%"><div><i class="fa fa-phone" aria-hidden="true" style="padding:5px;"></i></div><div style="display: flex;justify-content: center;align-items: center;">+91 9447785759</div></div>
+            <div></div>
+    	     <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 100%"><div><i class="fa fa-envelope" aria-hidden="true" style="padding:5px;"></i></div><div style="display: flex;justify-content: center;align-items: center;">britishas12@gmail.com</div></div>
+            <div></div>
+    	 </div>
+    	 </div>	
+    	 	
+    	</div>
+    	
+        <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;font-size: 25px;font-family: Audiowide;padding: 20px;width: 100%;background-color: transparent;">
+        	<div id="SIT" style="width:50%;display: flex;justify-content: flex-end;align-items: center;;padding-right: 5px">Stay in touch :</div>
+            <div id="social" style="width: 40%;display: flex;justify-content: flex-start;align-items: center;">
+            <div><a href="https://www.facebook.com/Conscientia.iist/" id="fb" target="_blank"><i class="fab fa-facebook-f" style="padding:10px;"></i></a></div>
+            <div><a href="https://twitter.com/IISTConscientia" id="twit" target="_blank"><i class="fab fa-twitter" style="padding: 10px;"></i></a></div>
+            <div><a href="https://twitter.com/IISTConscientia" id="twit" target="_blank"><i class="fab fa-instagram" style="padding: 10px;"></i></a></div>
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+	        
+			$(document).ready(function(){    	
+				// setTimeout(function(){
+    //                $('body').css('overflowY', 'auto');
+    //                $(window).on('scroll',function(){
+    //               $("#scroll_icon").css('visibility','hidden');
+				//         });
+				// 	},10000);
+				// $("#new_appearance").hide().fadeTo(8000,0.01,'linear',function(){
+				// 	$("#new_appearance").fadeTo(6000,1,'swing',function(){
+    //               //  $('body').css('overflowY', 'auto');
+    //               //  $(window).on('scroll',function(){
+    //               // $("#scroll_icon").css('visibility','hidden');
+				//         // });
+				// 	});
+				// });
+			});
+
+        
+</script>
+<script type="text/javascript">
+	var openPHSWIPE=function(){
+	var pswpElement = document.querySelectorAll('.pswp')[0];
+
+// build items array
+var items = [
+    {
+        src: 'img/demo3/new/5.jpg',
+        w: 1200,
+        h: 900
+    },
+    {
+        src: 'img/demo3/new/6.jpg',
+        w: 1200,
+        h: 900
+    },
+     {
+        src: 'img/demo3/new/7-min.jpg',
+        w: 1200,
+        h: 900
+    },
+     {
+        src: 'img/demo3/new/8.jpg',
+        w: 1200,
+        h: 900
+    },
+     {
+        src: 'img/demo3/new/9-min.jpg',
+        w: 1200,
+        h: 900
+    },
+     {
+        src: 'img/demo3/new/10-min.jpg',
+        w: 1200,
+        h: 900
+    },
+     {
+        src: 'img/demo3/new/11-min.jpg',
+        w: 1200,
+        h: 900
+    },
+
+];
+
+// define options (if needed)
+var options = {
+    // optionName: 'option value'
+    // for example:
+    index: 0 // start at first slide
+};
+
+// Initializes and opens PhotoSwipe
+var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+gallery.init();};
+
+// ------------------------------------------------------------------------
+document.getElementById('btn').onclick=openPHSWIPE;
+//$("#btn").hover(function(){$("#tap").css('display','flex')},function(){$("#tap").css('display','none')});
+
+</script>
+<script>
+	// var object=document.querySelectorAll('body');
+	// object.addEventListener("scroll", function()
+	// 	{myScript();});
+	// function myScript()
+	// {
+ //      $("$scroll_icon").hide();
+
+
+	// }
+	function myFunction(x) {
+    if (x.matches) { // If media query matches
+        $("#titles").css('font-size',30);
+        $("#check_font").css('font-size',14);
+        $("#check_font").css('padding','3px');
+        $("#theme").css('font-size',30);
+        $("#consc").css('font-size',22);
+        $("#consc").css('width','70%');
+        $("#consc").css('justify-content','flex-start');
+        $("#consc").css('padding',0);
+        $("#logo").css('width',100);
+        $("#logo").css('height','auto');
+        $("#logo_div").css('width','30%');
+        $("#logo_div").css('justify-content','center;');
+        $("#logo_div").css('padding-left',8);
+        $(".title_div").css('justify-content','center');
+        $(".date_details").css('font-size',22);
+        $(".d2g").css('padding-bottom',0);
+        $("#days").css('font-size',35);
+        $(".d2g").css('font-size',30);
+        $("#quote").css('font-size',22);
+        $(".date_details").css('padding-top','10px');
+        $("#quote").css('font-style','italic');
+        $("#quote").css('text-align','center');
+        $("#para").css('font-size',22);
+        $("#para").css('padding-left',20);
+        $("#para").css('padding-right',20);
+        $("#para").css('text-align','justify');
+        $("#para").css('word-spacing',-2);
+        $("#flexer").css('flex-direction','column');
+        $("#flexer").css('font-size',18);
+        $(".name_div").css('width','auto');     
+        $(".name_div").css('padding','10');  
+        // $("#consc1").css('width','70%');   
+        $("#SIT").css('font-size',18); 
+        $("#SIT").css('width','60%');       
+        $("#borderer").css('width','100%');
+        $("#borderer1").css('width','100%');     
+        $("#borderer2").css('width','100%');     
+        $("#contac").css('font-size',27);     
+        $("#abt").css('font-size',27);     
+        $("#cam").css('transform','scale(0.6)'); 
+        $("#tap").css('display','none');
+        $("#tap").css('font-size',18);    
+             } 
+    else {
+        
+    }
+}
+
+var x = window.matchMedia("(max-width: 800px)")
+myFunction(x); // Call listener function at run time
+x.addListener(myFunction);
+</script>
+<!--  -->
+<script>
+function myFunction(z) {
+    if (z.matches) {    
+        $("#flexer").css('flex-direction','column');
+        $("#flexer").css('font-size',23);
+        $("#borderer").css('width','50%');
+        $("#borderer1").css('width','50%');     
+        $("#borderer2").css('width','50%'); 
+        $(".name_div").css('width','auto');     
+        $(".name_div").css('padding','7');  
+
+             } 
+    else {
+        
+    }
+}
+    
+var z = window.matchMedia("(max-width: 1200px)")
+myFunction(z); // Call listener function at run time
+z.addListener(myFunction);
+
+
+</script>
+<!--  -->
+<script>
+    // var object=document.querySelectorAll('body');
+    // object.addEventListener("scroll", function()
+    //  {myScript();});
+    // function myScript()
+    // {
+ //      $("$scroll_icon").hide();
+
+
+    // }
+    function myFunction(y) {
+    if (y.matches) { // If media query matches
+        $("html").css('padding',0);
+        $("html").css('margin',0);
+        $("body").css('padding',0);
+        $("body").css('margin',0);
+        // $("#scene").css('width','100vw');
+        // $("#scene").css('height','100vh')
+        // $("#scene").css('size','cover');;
+        // $("#scene").css('position','center');
+        // $("body").css('width','100vw');
+        // $("#scene").css('width','100vw');
+         $("#titles").css('font-size',25);
+        $("#theme").css('font-size',25);
+         $("#check_font").css('font-size',13);
+        $("c#heck_font").css('padding','3px');
+        $("#consc").css('font-size',21);
+        $("#consc").css('padding-right',0);
+        $("#consc").css('width','80%');
+        $("#consc").css('justify-content','flex-end');
+        $("#consc").css('align-items','right')
+        $("#consc").css('padding',0);
+        $("#logo").css('width','100%');
+        $("#logo").css('height','auto');
+        $("#logo_div").css('width','20%');
+        $("#logo_div").css('justify-content','center;');
+        $("#logo_div").css('padding-left',0);
+        $(".title_div").css('justify-content','center');
+        $(".date_details").css('font-size',20);
+        $(".date_details").css('padding-top','8px');
+        $(".d2g").css('padding-bottom',0);
+        $("#days").css('font-size',29);
+        $(".d2g").css('font-size',26);
+        $("#quote").css('font-size',19);
+        $("#quote").css('font-style','italic');
+        $("#quote").css('text-align','center');
+        $("#para").css('font-size',19);
+        $("#para").css('padding-left',10);
+        $("#para").css('padding-right',10);
+        $("#para").css('text-align','justify');
+        $("#para").css('word-spacing','-1.5px');
+        $("#flexer").css('flex-direction','column');
+        $("#flexer").css('font-size',17);
+        $(".name_div").css('width','auto');     
+        $(".name_div").css('padding','7');  
+        // $("#consc1").css('width','70%');   
+        $("#SIT").css('font-size',17); 
+        $("#cam").css('transform','scale(0.53)'); 
+        $("#SIT").css('width','65%');       
+        $("#borderer").css('width','100%');
+        $("#borderer1").css('width','100%');     
+        $("#borderer2").css('width','100%');     
+        $("#contac").css('font-size',24);     
+        $("#abt").css('font-size',24);  
+        $("#scroll_icon").css('font-size','16px');
+        $("#edit").css('justify-content','center');
+        $("#tap").css('display','none');
+        $("#tap").css('font-size',17);  
+        $("#social").css('width','34%');     
+             } 
+    else {
+        
+    }
+}
+
+var y = window.matchMedia("(max-width: 375px)")
+myFunction(y); // Call listener function at run time
+y.addListener(myFunction); 
+</script>
+
+<script>
+	var canv=$("#scene");
+	canv.width=window.innerWidth;
+	canv.height=window.innerHeight;
+</script>
+<script src="js/vendors/three.min.js"></script>
+<script src="js/vendors/TweenMax.min.js"></script>
+<script src="js/demo3.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

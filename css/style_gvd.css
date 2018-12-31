@@ -1,0 +1,68 @@
+.mystyle{
+  -webkit-animation: seconds 1.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 5s;
+  animation: seconds 1.0s forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-delay: 5s;
+  position: relative;
+  background-color: transparent;
+}
+.mystyle1{
+  -webkit-animation: seconds 1.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 5s;
+  animation: seconds 1.0s forwards;
+  animation-iteration-count: 1;
+   animation-timing-function: ease-in-out;
+  animation-delay: 5s;
+  position: relative;
+  background-color: : transparent;
+}
+.mystyle2{
+   -webkit-transition: width 20s;  Safari 
+   transition: transform 20s;
+    
+}
+
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+  }
+}
+@-webkit-keyframes sec {
+  
+  0% {
+    opacity: 0;
+    left: -9999px; 
+  }
+ 100% {
+    opacity: 1;
+  }
+}
+@keyframes sec {
+
+  0% {
+    opacity: 0;
+    left: -9999px; 
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
